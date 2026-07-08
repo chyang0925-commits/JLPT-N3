@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>JLPT N3 학습앱</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <style>
+    body{margin:0;background:#0d1117;}
+    #loading{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      height:100vh;color:#e6edf3;font-family:sans-serif;gap:12px;}
+    .spinner{width:40px;height:40px;border:3px solid #21262d;border-top-color:#f97316;
+      border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="spinner"></div>
+    <div>JLPT N3 로딩 중...</div>
+  </div>
+  <div id="root"></div>
+  <script>
+var _React = React,
+  useState = _React.useState,
+  useMemo = _React.useMemo,
+  useEffect = _React.useEffect,
+  useRef = _React.useRef,
+  useCallback = _React.useCallback;
+
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+/* ─── STYLES ─────────────────────────────────────────────────────── */
+var CSS = "\n@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap');\n:root{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bg4:#2d333b;--or:#f97316;--or2:#c2410c;--gn:#22c55e;--rd:#f85149;--bl:#58a6ff;--gd:#fbbf24;--tx:#e6edf3;--tx2:#8b949e;--tx3:#6e7681;}\n*{box-sizing:border-box;margin:0;padding:0;}\nbody{background:var(--bg);color:var(--tx);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;min-height:100vh;}\n.app{max-width:500px;margin:0 auto;padding-bottom:40px;min-height:100vh;}\nruby{display:inline-ruby;ruby-align:center;}\nrt{font-size:0.6em;color:var(--tx2);font-family:'BIZ UDPMincho',serif;line-height:1.2;}\n.home-hdr{padding:48px 24px 24px;text-align:center;}\n.home-logo{font-size:64px;line-height:1;}\n.home-title{font-size:22px;font-weight:900;color:var(--or);letter-spacing:3px;margin-top:12px;}\n.home-sub{font-size:13px;color:var(--tx2);margin-top:6px;line-height:1.6;}\n.lesson-card{display:flex;align-items:center;background:var(--bg2);border:2px solid var(--bg3);border-radius:16px;padding:20px;margin:10px 16px;cursor:pointer;transition:all .2s;gap:16px;}\n.lesson-card:hover{border-color:var(--or);transform:translateX(4px);background:var(--bg3);}\n.lesson-badge{width:56px;height:56px;background:var(--or);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff;flex-shrink:0;}\n.lesson-badge.l2{background:#7c3aed;}\n.lesson-badge.l3{background:#0ea5e9;}\n.lesson-badge.l4{background:#059669;}\n.lesson-info{flex:1;}\n.lesson-name{font-size:15px;font-weight:700;}\n.lesson-year{font-size:12px;color:var(--tx2);margin-top:3px;}\n.lesson-wc{font-size:12px;color:var(--or);margin-top:5px;font-weight:500;}\n.nav{display:flex;align-items:center;padding:12px 16px;gap:8px;border-bottom:1px solid var(--bg3);}\n.nav-back{background:var(--bg3);border:none;color:var(--tx2);padding:8px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}\n.nav-back:hover{color:var(--tx);}\n.nav-title{font-size:15px;font-weight:700;flex:1;}\n.nav-sub{font-size:12px;color:var(--tx2);}\n.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;}\n.menu-cell{background:var(--bg2);border:2px solid var(--bg3);border-radius:14px;padding:20px 16px;cursor:pointer;text-align:center;transition:all .2s;}\n.menu-cell:hover{border-color:var(--or);background:var(--bg3);}\n.menu-cell.full{grid-column:1/-1;}\n.menu-cell.danger{border-color:#5a1d1d;}\n.menu-cell.danger:hover{border-color:var(--rd);}\n.menu-icon{font-size:30px;margin-bottom:8px;}\n.menu-label{font-size:13px;font-weight:700;}\n.menu-hint{font-size:11px;color:var(--tx2);margin-top:3px;}\n.menu-badge{display:inline-block;background:var(--rd);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;}\n.fc-wrap{padding:16px;}\n.fc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:8px;flex-wrap:wrap;}\n.fc-counter{font-size:14px;color:var(--tx2);}\n.fc-filter{display:flex;gap:6px;flex-wrap:wrap;}\n.fc-filter-btn{background:var(--bg3);border:1px solid var(--bg4);color:var(--tx2);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:11px;}\n.fc-filter-btn.active{background:var(--or);border-color:var(--or);color:#fff;}\n.fc-card{background:var(--bg2);border:2px solid var(--bg3);border-radius:20px;min-height:260px;cursor:pointer;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 24px;transition:all .3s;user-select:none;}\n.fc-card:active{transform:scale(.97);}\n.fc-card.flipped{border-color:var(--or);}\n.fc-kanji{font-family:'BIZ UDPMincho',serif;font-size:52px;font-weight:600;line-height:1.2;}\n.fc-small{font-size:28px;}\n.fc-hira{font-size:18px;color:var(--or);margin-top:10px;font-weight:500;}\n.fc-korean{font-size:22px;font-weight:700;margin-top:8px;}\n.fc-tap{font-size:12px;color:var(--tx3);position:absolute;bottom:14px;right:16px;}\n.fc-imp{display:inline-block;background:var(--gd);color:#000;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;margin-bottom:8px;}\n.fc-hint-btn{margin-top:14px;padding:7px 16px;background:transparent;border:1px solid var(--or);color:var(--or);border-radius:20px;cursor:pointer;font-size:12px;transition:all .2s;}\n.fc-hint-btn:hover{background:var(--or);color:#fff;}\n.fc-hint{background:var(--bg3);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:13px;color:var(--tx2);line-height:1.7;max-width:100%;}\n.fc-actions{display:flex;gap:12px;margin-top:16px;}\n.fc-action{flex:1;padding:13px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;border:none;transition:all .2s;}\n.fc-action.miss{background:#2a1010;color:var(--rd);border:1.5px solid var(--rd);}\n.fc-action.miss:hover{background:#3d1515;}\n.fc-action.hit{background:#0d2818;color:var(--gn);border:1.5px solid var(--gn);}\n.fc-action.hit:hover{background:#122a1e;}\n.qz-wrap{padding:16px;}\n.qz-prog{display:flex;gap:3px;margin-bottom:12px;}\n.qz-prog-seg{flex:1;height:4px;background:var(--bg3);border-radius:2px;transition:background .3s;}\n.qz-prog-seg.correct{background:var(--gn);}\n.qz-prog-seg.wrong{background:var(--rd);}\n.qz-card{background:var(--bg2);border:2px solid var(--bg3);border-radius:16px;padding:24px;margin-bottom:14px;text-align:center;}\n.qz-type{font-size:11px;color:var(--or);font-weight:700;letter-spacing:1.5px;margin-bottom:10px;}\n.qz-word{font-family:'BIZ UDPMincho',serif;font-size:44px;font-weight:600;line-height:1.3;}\n.qz-word.hira{font-family:'BIZ UDPMincho',serif;font-size:30px;}\n.qz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}\n.qz-opt{background:var(--bg3);border:2px solid transparent;border-radius:12px;padding:14px 10px;cursor:pointer;font-size:14px;font-weight:500;transition:all .2s;text-align:center;line-height:1.5;min-height:54px;display:flex;align-items:center;justify-content:center;}\n.qz-opt:hover:not([data-disabled]){border-color:var(--or);background:var(--bg4);}\n.qz-opt.correct{border-color:var(--gn);background:#0d2818;color:var(--gn);}\n.qz-opt.wrong{border-color:var(--rd);background:#2a1010;color:var(--rd);}\n.qz-feedback{background:var(--bg3);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:13px;line-height:1.7;}\n.qz-score{text-align:center;padding:48px 24px;}\n.score-emoji{font-size:64px;}\n.score-big{font-size:56px;font-weight:900;color:var(--or);margin:12px 0;}\n.score-pct{font-size:16px;color:var(--tx2);}\n.score-row{display:flex;gap:32px;justify-content:center;margin:24px 0;}\n.score-item .num{font-size:28px;font-weight:700;}\n.score-item .lbl{font-size:12px;color:var(--tx2);margin-top:2px;}\n.score-item .num.g{color:var(--gn);}\n.score-item .num.r{color:var(--rd);}\n.prac-sets{padding:16px;}\n.prac-set-card{background:var(--bg2);border:2px solid var(--bg3);border-radius:12px;padding:16px 18px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .2s;}\n.prac-set-card:hover{border-color:var(--or);}\n.prac-num-badge{width:44px;height:44px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--or);}\n.prac-set-title{font-size:15px;font-weight:700;}\n.prac-set-score{font-size:12px;color:var(--tx2);margin-top:3px;}\n.prac-q-wrap{padding:12px 16px;}\n.prac-q{background:var(--bg2);border-radius:14px;padding:18px;margin-bottom:14px;}\n.prac-q-num{display:flex;align-items:center;gap:8px;margin-bottom:10px;}\n.prac-q-n{width:26px;height:26px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;}\n.prac-imp{font-size:10px;background:var(--gd);color:#000;padding:2px 7px;border-radius:6px;font-weight:700;}\n.prac-sent{font-size:15px;line-height:2.4;margin-bottom:12px;font-family:'BIZ UDPMincho',serif;}\n.prac-ul{border-bottom:2px solid var(--or);padding-bottom:1px;font-weight:700;color:var(--or);}\n.prac-opts{display:grid;grid-template-columns:1fr;gap:7px;}\n.prac-opt{background:var(--bg3);border:2px solid transparent;border-radius:10px;padding:12px 16px;cursor:pointer;font-size:16px;font-family:\"BIZ UDPMincho\",serif;transition:all .2s;text-align:left;display:flex;align-items:center;gap:10px;}\n.prac-opt:hover:not([data-disabled]){border-color:var(--or);}\n.prac-opt.correct{border-color:var(--gn);background:#0d2818;color:var(--gn);font-weight:700;}\n.prac-opt.wrong{border-color:var(--rd);background:#2a1010;color:var(--rd);}\n.prac-result{background:var(--bg4);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:12px;color:var(--tx2);}\n.wr-list{padding:16px;}\n.wr-item{background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:16px;}\n.wr-kanji{font-family:'BIZ UDPMincho',serif;font-size:26px;font-weight:600;min-width:60px;text-align:center;}\n.wr-info{flex:1;}\n.wr-hira{font-size:13px;color:var(--or);font-weight:500;}\n.wr-kr{font-size:16px;font-weight:700;margin-top:3px;}\n.btn{padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;border:none;width:100%;}\n.btn-or{background:var(--or);color:#fff;}\n.btn-or:hover{background:var(--or2);}\n.btn-ghost{background:transparent;color:var(--tx2);border:2px solid var(--bg3);}\n.btn-ghost:hover{border-color:var(--tx2);color:var(--tx);}\n.mt8{margin-top:8px;}\n.mt16{margin-top:16px;}\n.empty{text-align:center;padding:60px 20px;color:var(--tx2);}\n.empty-icon{font-size:48px;margin-bottom:12px;}\n.empty-text{font-size:15px;}\n.qz-info-bar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--tx2);margin-bottom:12px;}\n.random-badge{display:inline-block;background:linear-gradient(135deg,#f97316,#a855f7);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:8px;}\n.qz-timer{display:flex;align-items:center;gap:8px;}\n.qz-timer-bar{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}\n.qz-timer-fill{height:100%;border-radius:3px;transition:width .1s linear;}\n.qz-timer-num{font-size:13px;font-weight:700;min-width:20px;text-align:right;}\n.prac-meaning{background:var(--bg4);border-left:3px solid var(--bl);border-radius:6px;padding:8px 12px;margin-top:8px;font-size:12px;color:var(--tx2);line-height:1.6;}\n";
+
+/* ─── FURIGANA RENDERER ──────────────────────────────────────────── */
+// {漢字|ふりがな} 표기를 파싱해서 <ruby>로 렌더링
+function RubyText(_ref) {
+  var text = _ref.text;
+  if (!text) return null;
+  var parts = text.split(/(\{[^|{}]+\|[^|{}]+\})/g);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, parts.map(function (part, i) {
+    var m = part.match(/^\{([^|]+)\|([^}]+)\}$/);
+    if (m) {
+      return /*#__PURE__*/React.createElement("ruby", {
+        key: i
+      }, m[1], /*#__PURE__*/React.createElement("rt", null, m[2]));
+    }
+    return part ? /*#__PURE__*/React.createElement("span", {
+      key: i
+    }, part) : null;
+  }));
+}
+
+// 밑줄 친 단어 + 나머지 후리가나를 함께 렌더링
+function renderSentence(sent, ul) {
+  if (!ul || !sent) return /*#__PURE__*/React.createElement(RubyText, {
+    text: sent
+  });
+  var idx = sent.indexOf(ul);
+  if (idx !== -1) {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, sent.slice(0, idx) && /*#__PURE__*/React.createElement(RubyText, {
+      text: sent.slice(0, idx)
+    }), /*#__PURE__*/React.createElement("span", {
+      className: "prac-ul"
+    }, ul), sent.slice(idx + ul.length) && /*#__PURE__*/React.createElement(RubyText, {
+      text: sent.slice(idx + ul.length)
+    }));
+  }
+  var regexStr = '';
+  var _iterator = _createForOfIteratorHelper(ul),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var ch = _step.value;
+      var esc = ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      regexStr += "(?:\\{".concat(esc, "\\|[^|{}]+\\}|").concat(esc, ")");
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  try {
+    var regex = new RegExp(regexStr);
+    var match = sent.match(regex);
+    if (match) {
+      var mIdx = sent.indexOf(match[0]);
+      var before = sent.slice(0, mIdx);
+      var after = sent.slice(mIdx + match[0].length);
+      return /*#__PURE__*/React.createElement(React.Fragment, null, before && /*#__PURE__*/React.createElement(RubyText, {
+        text: before
+      }), /*#__PURE__*/React.createElement("span", {
+        className: "prac-ul"
+      }, ul), after && /*#__PURE__*/React.createElement(RubyText, {
+        text: after
+      }));
+    }
+  } catch (e) {}
+  return /*#__PURE__*/React.createElement(RubyText, {
+    text: sent
+  });
+}
+
+/* ─── DATA: 1과 VOCAB (기출어휘 2016~2024, 다락원 N3 한권으로 끝내기 p.15~18) ──
+   형식: [표기, 히라가나, 한국어의미, 암기힌트, 출제빈도높음?] ───────────── */
+var V1 = [['返す', 'かえす', '돌려주다', '反(돌이킬 반)+す → 되돌려 주다 🔄', false], ['感情的', 'かんじょうてき', '감정적', '感(느낄 감)+情(뜻 정)+的(~적) → 느낌에 좌우되는 😢', false], ['最初', 'さいしょ', '최초, 처음', '最(가장 최)+初(처음 초) → 가장 처음', false], ['適当だ', 'てきとうだ', '적당하다', '適(맞을 적)+当(마땅 당) → 딱 알맞다 👍', false], ['父母', 'ふぼ', '부모', '父(아비 부)+母(어미 모) → 부모', false], ['割る', 'わる', '나누다, 쪼개다, 깨뜨리다', '칼로 물건을 갈라 나누는 모양 🔨', false], ['疑う', 'うたがう', '의심하다', '비수(匕)처럼 마음이 날카로워져 의심하다 🤔', false], ['高価', 'こうか', '고가', '高(높을 고)+価(값 가) → 값이 높음 💰', false], ['産業', 'さんぎょう', '산업', '産(낳을 산)+業(업 업) → 물건을 만들어내는 일 🏭', false], ['朝刊', 'ちょうかん', '조간', '朝(아침 조)+刊(펴낼 간) → 아침에 나오는 신문 📰', false], ['復習', 'ふくしゅう', '복습', '復(다시 복)+習(익힐 습) → 다시 익히다 📖', false], ['留守', 'るす', '부재중', '留(머물 류)+守(지킬 수) → 집을 비운 채 지킴 🚪', false], ['裏', 'うら', '뒤, 뒷면', '겉과 반대되는 안쪽·뒷면', false], ['小型', 'こがた', '소형', '小(작을 소)+型(모형 형) → 작은 크기', false], ['選手', 'せんしゅ', '선수', '選(가릴 선)+手(사람 수) → 뽑힌 사람 🏅', false], ['広場', 'ひろば', '광장', '広(넓을 광)+場(마당 장) → 넓은 마당', false], ['細い', 'ほそい', '좁다, 가늘다', '실(糸)처럼 가늘게 이어진 모양', false], ['汚す', 'よごす', '더럽히다', '氵(물 수) → 물이 더러워지다 💧', false], ['比べる', 'くらべる', '비교하다', '두 사람(比)이 나란히 서서 견주다', false], ['件', 'けん', '건', '사람(人)이 소(牛)를 세듯 하나씩 세는 단위', false], ['難しい', 'むずかしい', '어렵다', '진흙탕에 새가 빠진 듯 힘든 상황 😖', false], ['容器', 'ようき', '용기(그릇)', '容(담을 용)+器(그릇 기) → 담는 그릇', false], ['角', 'かど', '모퉁이', '짐승 뿔(角)처럼 튀어나온 모퉁이', false], ['計算', 'けいさん', '계산', '計(셀 계)+算(셈 산) → 셈하다 🔢', false], ['情報', 'じょうほう', '정보', '情(뜻 정)+報(알릴 보) → 알려주는 소식', false], ['現在', 'げんざい', '현재', '現(나타날 현)+在(있을 재) → 지금 있는 시점 ⏰', false], ['複数', 'ふくすう', '복수(여러 개)', '複(겹칠 복)+数(셀 수) → 여러 개의 수', false], ['夕日', 'ゆうひ', '석양', '夕(저녁 석)+日(해 일) → 저녁 해 🌇', false], ['悲しい', 'かなしい', '슬프다', '非(아닐 비)+心(마음 심) → 마음이 아니다=슬프다 😢', false], ['自然', 'しぜん', '자연', '自(스스로 자)+然(그러할 연) → 스스로 그러한 것 🌿', false], ['通知', 'つうち', '통지', '通(통할 통)+知(알 지) → 알려서 통하게 함 📩', false], ['逃げる', 'にげる', '도망치다, 달아나다', '辶(달릴 착)+兆(조짐 조) → 낌새 채고 달아나다 🏃', false], ['秒', 'びょう', '초(시간)', '禾(벼 화)+少(적을 소) → 아주 작은 시간 단위 ⏱️', false], ['過去', 'かこ', '과거', '過(지날 과)+去(갈 거) → 지나가 버린 시간', false], ['呼吸', 'こきゅう', '호흡', '呼(부를 호)+吸(마실 흡) → 내쉬고 들이마심 🌬️', false], ['駐車', 'ちゅうしゃ', '주차', '駐(머무를 주)+車(수레 차) → 차를 세워둠 🚗', false], ['努力', 'どりょく', '노력', '努(힘쓸 노)+力(힘 력) → 힘써 애씀 💪', false], ['生える', 'はえる', '나다, 자라다', '生(날 생)+える → 싹이 돋아나다 🌱', false], ['残り', 'のこり', '나머지', '歹(부서질 알)+戔(적을 잔) → 남은 부분', false], ['郵送', 'ゆうそう', '우송', '郵(우편 우)+送(보낼 송) → 우편으로 보냄 📮', false], ['預ける', 'あずける', '맡기다', '予(미리 예)+頁(머리 혈) → 미리 맡겨두다', false], ['交流', 'こうりゅう', '교류', '交(사귈 교)+流(흐를 류) → 서로 오가며 사귐 🤝', false], ['普通', 'ふつう', '보통, 대개', '普(널리 보)+通(통할 통) → 널리 통하는 흔한 것', false], ['各駅', 'かくえき', '각 역', '各(각각 각)+駅(역 역) → 하나하나의 역 🚉', false], ['遅い', 'おそい', '늦다', '辶(달릴 착) → 발걸음이 느릿느릿 늦다 🐌', false], ['腰', 'こし', '허리', '月(몸 육)+要(중요할 요) → 몸의 중요한 부분, 허리', false], ['助ける', 'たすける', '돕다, 살리다', '且(또 차)+力(힘 력) → 힘을 보태 돕다 🤲', false], ['郵便', 'ゆうびん', '우편', '郵(우편 우)+便(편할 편) → 편지를 보내는 제도 ✉️', false], ['方角', 'ほうがく', '방위, 방향', '方(모 방)+角(뿔 각) → 방향을 가리키는 각도 🧭', false], ['予約', 'よやく', '예약', '予(미리 예)+約(맺을 약) → 미리 약속함 📅', false], ['印象', 'いんしょう', '인상', '印(도장 인)+象(코끼리 상) → 마음에 도장처럼 찍힌 느낌', false], ['上品だ', 'じょうひんだ', '고상하다', '上(위 상)+品(물건 품) → 품격이 높다 ✨', false], ['昼食', 'ちゅうしょく', '중식, 점심식사', '昼(낮 주)+食(먹을 식) → 낮에 먹는 밥 🍱', false], ['調査', 'ちょうさ', '조사', '調(고를 조)+査(살필 사) → 자세히 살펴봄 🔍', false], ['未来', 'みらい', '미래', '未(아닐 미)+来(올 래) → 아직 오지 않은 때', false], ['若い', 'わかい', '젊다', '艹(풀 초)+右(오른쪽 우) → 어린 풀처럼 젊다 🌱', false], ['改札', 'かいさつ', '개찰구', '改(고칠 개)+札(패 찰) → 표를 확인하는 곳 🚪', false], ['休日', 'きゅうじつ', '휴일', '休(쉴 휴)+日(날 일) → 쉬는 날 🏖️', false], ['塩', 'しお', '소금', '土(흙 토)+皿(그릇 명) → 그릇에 담긴 소금', false], ['卒業', 'そつぎょう', '졸업', '卒(마칠 졸)+業(업 업) → 학업을 마침 🎓', false], ['部分', 'ぶぶん', '부분', '部(떼 부)+分(나눌 분) → 나누어진 한 조각', false], ['機械', 'きかい', '기계', '木(나무 목)+幾(몇 기) → 나무를 짜맞춘 장치 ⚙️', false], ['恋しい', 'こいしい', '그립다', '亦(또 역)+心(마음 심) → 마음이 자꾸 향해 그립다 💭', false], ['相談', 'そうだん', '상담', '相(서로 상)+談(말씀 담) → 서로 이야기를 나눔 💬', false], ['得意だ', 'とくいだ', '자신있다, 잘하다', '得(얻을 득)+意(뜻 의) → 뜻한 바를 잘 얻어냄 😎', false], ['下線', 'かせん', '밑줄', '下(아래 하)+線(줄 선) → 아래에 그은 줄', false], ['主要だ', 'しゅようだ', '주요하다', '主(주인 주)+要(중요할 요) → 주된 핵심', false], ['直接', 'ちょくせつ', '직접', '直(곧을 직)+接(이을 접) → 곧바로 이어짐', false], ['結ぶ', 'むすぶ', '잇다, 매다, 묶다', '糸(실 사)+吉(길할 길) → 실로 매듭짓다 🎀', false], ['回す', 'まわす', '돌리다, 회전시키다', '回(돌 회)+す → 빙글빙글 돌리다 🔄', false], ['位置', 'いち', '위치', '位(자리 위)+置(둘 치) → 자리에 두는 곳 📍', false], ['汚い', 'きたない', '더럽다', '氵(물 수) → 물이 더러워짐', false], ['転ぶ', 'ころぶ', '넘어지다', '車(수레 차)가 구르듯 넘어지다', false], ['商品', 'しょうひん', '상품', '商(장사 상)+品(물건 품) → 파는 물건 🛒', false], ['冷える', 'ひえる', '식다', '冫(얼음 빙)+令(명령 령) → 차갑게 식다 🧊', false], ['燃える', 'もえる', '타다', '火(불 화)+然(그러할 연) → 불이 타오르다 🔥', false], ['共通', 'きょうつう', '공통', '共(함께 공)+通(통할 통) → 함께 통하는 것', false], ['個人', 'こじん', '개인', '個(낱 개)+人(사람 인) → 한 사람 한 사람', false], ['観客', 'かんきゃく', '관객', '観(볼 관)+客(손 객) → 보러 온 손님 🎭', false], ['訓練', 'くんれん', '훈련', '訓(가르칠 훈)+練(익힐 련) → 가르쳐서 익히게 함 🏋️', false], ['到着', 'とうちゃく', '도착', '到(이를 도)+着(붙을 착) → 다다라서 닿음 🏁', false], ['測る', 'はかる', '재다, 달다', '氵(물 수)+則(법칙 칙) → 정확히 헤아려 재다 📏', false], ['豆', 'まめ', '콩', '콩깍지 속에 콩이 든 모양 🫘', false], ['方向', 'ほうこう', '방향', '方(모 방)+向(향할 향) → 향하는 쪽 🧭', false], ['申し込み', 'もうしこみ', '신청', '申(아뢸 신)+込む(담다) → 뜻을 담아 아룀 📝', false], ['包む', 'つつむ', '싸다, 포장하다', '물건을 감싸듯 싸다 🎁', false], ['血圧', 'けつあつ', '혈압', '血(피 혈)+圧(누를 압) → 피가 혈관을 누르는 힘 🩺', false], ['制服', 'せいふく', '제복, 교복', '制(마를 제)+服(옷 복) → 정해진 옷 👔', false], ['早退', 'そうたい', '조퇴', '早(이를 조)+退(물러날 퇴) → 일찍 물러나다', false]];
+
+/* ─── DATA: 1과 확인문제 (다락원 N3 한권으로 끝내기 p.19~25, 문제1~7 각 10문항) ──
+   형식: [문장, 밑줄단어, [[읽기,한국어라벨]x4], 정답인덱스(0-based), 중요도, 전체해석] ─── */
+var P1 = [{
+  id: 1,
+  title: '확인문제 1',
+  qs: [['その町の人口を調査します。', '調査', [['ちょうさ', '조사 ✅'], ['ちょうさつ', '★오독'], ['ちょさ', '★오독'], ['ちょさつ', '★오독']], 0, false, '그 마을의 인구를 조사합니다.'], ['入り口でコートを預けた。', '預けた', [['あすけた', '★오독'], ['とどけた', '전달했다/신고했다'], ['あずけた', '맡겼다 ✅'], ['ととけた', '★오독']], 2, false, '입구에서 코트를 맡겼다.'], ['わたしの家の裏は幼稚園です。', '裏', [['うら', '뒤 ✅'], ['よこ', '옆'], ['かげ', '그림자'], ['そば', '옆, 곁']], 0, false, '우리 집 뒤는 유치원입니다.'], ['若く見られることはいいことばかりではない。', '若く', [['さむく', '춥게'], ['わかく', '젊게 ✅'], ['こわく', '무섭게'], ['わるく', '나쁘게']], 1, false, '젊어 보이는 것이 좋은 것만은 아니다.'], ['留学について両親に相談した。', '相談', [['しょうだん', '★오독'], ['しょうたん', '★오독'], ['そうだん', '상담 ✅'], ['そうたん', '★오독']], 2, false, '유학에 대해 부모님과 상담했다.'], ['そういう命令するような言い方はやめてほしい。', '命令', [['めれん', '★오독'], ['めいれん', '★오독'], ['めれい', '★오독'], ['めいれい', '명령 ✅']], 3, false, '그런 명령하는 듯한 말투는 그만했으면 한다.'], ['これはよく燃えます。', '燃えます', [['にえます', '끓습니다'], ['ひえます', '식습니다'], ['きえます', '꺼집니다'], ['もえます', '탑니다 ✅']], 3, false, '이것은 잘 탑니다.'], ['重要な所に赤で下線を引いてください。', '下線', [['かせん', '밑줄 ✅'], ['かぜん', '★오독'], ['げせん', '★오독'], ['げぜん', '★오독']], 0, false, '중요한 곳에 빨간색으로 밑줄을 그으세요.'], ['会費は山下くんに払ってください。', '払って', [['ひろって', '주워서'], ['くばって', '나눠줘서'], ['はらって', '지불해서 ✅'], ['かぞって', '★오독']], 2, false, '회비는 야마시타 군에게 지불하세요.'], ['これは個人の力でできるものではない。', '個人', [['こうじん', '★오독'], ['こじん', '개인 ✅'], ['こにん', '★오독'], ['こうにん', '공인, 후임']], 1, false, '이것은 개인의 힘으로 할 수 있는 것이 아니다.']]
+}, {
+  id: 2,
+  title: '확인문제 2',
+  qs: [['この店はケーキの種類が多い。', '種類', [['しゅるい', '종류 ✅'], ['じゅるい', '★오독'], ['しゅうるい', '★오독'], ['じゅうるい', '★오독']], 0, false, '이 가게는 케이크 종류가 많다.'], ['わたしは自分の目を疑った。', '疑った', [['ことわった', '거절했다'], ['うたがった', '의심했다 ✅'], ['きらった', '싫어했다'], ['おこった', '화냈다']], 1, false, '나는 내 눈을 의심했다.'], ['「結婚なんかしない」と言ったら母は悲しそうだった。', '悲しそう', [['やさしそう', '다정할 것 같다'], ['さびしそう', '외로울 것 같다'], ['かなしそう', '슬퍼 보인다 ✅'], ['うれしそう', '기쁠 것 같다']], 2, false, '"결혼 같은 거 안 해"라고 말했더니 어머니는 슬퍼 보였다.'], ['彼は市長を助けて市政を再建した。', '助けて', [['うけて', '받아서'], ['たすけて', '도와서 ✅'], ['とどけて', '전달해서/신고해서'], ['かたづけて', '정리해서']], 1, false, '그는 시장을 도와 시정을 재건했다.'], ['今は遊ぶ気分じゃない。', '遊ぶ', [['よぶ', '부르다'], ['あそぶ', '놀다 ✅'], ['まなぶ', '배우다'], ['さけぶ', '외치다']], 1, false, '지금은 놀 기분이 아니다.'], ['山田さんはときどき休日出勤します。', '休日', [['しゅくじつ', '★오독'], ['きゅうじつ', '휴일 ✅'], ['きゅうにち', '★오독'], ['しゅくにち', '★오독']], 1, false, '야마다 씨는 가끔 휴일 출근을 합니다.'], ['母は店の売り上げを計算している。', '計算', [['けいさん', '계산 ✅'], ['けいざん', '★오독'], ['けいがく', '★오독'], ['けいかく', '계획']], 0, false, '어머니는 가게 매출을 계산하고 있다.'], ['このビールはまだ冷えていないよ。', '冷えて', [['ひえて', '식어서 ✅'], ['うえて', '★오독'], ['もえて', '타서'], ['にえて', '끓어서']], 0, false, '이 맥주는 아직 안 차가워졌어.'], ['彼はパイロットになるための訓練を受けた。', '訓練', [['ぐんれい', '★오독'], ['くんれい', '훈령'], ['ぐんれん', '★오독'], ['くんれん', '훈련 ✅']], 3, false, '그는 파일럿이 되기 위한 훈련을 받았다.'], ['チケットの申し込みをインターネットで行った。', '申し込み', [['もしくみ', '★오독'], ['もうしこみ', '신청 ✅'], ['とうこみ', '★오독'], ['もうしくみ', '★오독']], 1, false, '티켓 신청을 인터넷으로 했다.']]
+}, {
+  id: 3,
+  title: '확인문제 3',
+  qs: [['岩の多い山に登りました。', '岩', [['かい', '조개, 회'], ['いわ', '바위 ✅'], ['すな', '모래'], ['どろ', '진흙']], 1, false, '바위가 많은 산에 올랐습니다.'], ['しばらく旅行で留守にします。', '留守', [['りゅうす', '★오독'], ['しゅうしゅ', '★오독'], ['るす', '부재중 ✅'], ['しょうらい', '장래']], 2, false, '당분간 여행으로 집을 비웁니다.'], ['未来には人類は月に住むようになるかもしれない。', '未来', [['みらい', '미래 ✅'], ['みくる', '★오독'], ['しょうらい', '장래'], ['しょうき', '★오독']], 0, false, '미래에는 인류가 달에 살게 될지도 모른다.'], ['この列車は各駅に停車する。', '各駅', [['かくえき', '각 역 ✅'], ['がくえき', '★오독'], ['きゃくえき', '★오독'], ['ぎゃくえき', '★오독']], 0, false, '이 열차는 각 역에 정차한다.'], ['窓を開けて空気を換えてください。', '換えて', [['くわえて', '더해서'], ['つかまえて', '붙잡아서'], ['つたえて', '전달해서'], ['かえて', '바꿔서 ✅']], 3, false, '창문을 열고 공기를 바꿔 주세요.'], ['山本さんは数学が得意です。', '得意', [['とうい', '★오독'], ['どうい', '동의'], ['とくい', '자신있음 ✅'], ['どくい', '★오독']], 2, false, '야마모토 씨는 수학을 잘합니다.'], ['これをリボンで結んでください。', '結んで', [['たたんで', '접어서'], ['むすんで', '묶어서 ✅'], ['つつんで', '포장해서'], ['ならんで', '줄서서']], 1, false, '이것을 리본으로 묶어 주세요.'], ['川の水はごみで汚くなっています。', '汚く', [['せまく', '좁게'], ['うるさく', '시끄럽게'], ['くさく', '냄새나게'], ['きたなく', '더럽게 ✅']], 3, false, '강물이 쓰레기로 더러워지고 있습니다.'], ['その国は税金が高い。', '税金', [['せいきん', '★오독'], ['せっきん', '★오독'], ['ぜいきん', '세금 ✅'], ['ぞっきん', '★오독']], 2, false, '그 나라는 세금이 높다.'], ['姉は親から独立して生活を立てている。', '独立', [['どくりつ', '독립 ✅'], ['どくりゅう', '★오독'], ['とくりつ', '★오독'], ['とくりゅう', '★오독']], 0, false, '언니(누나)는 부모로부터 독립해서 생활하고 있다.']]
+}, {
+  id: 4,
+  title: '확인문제 4',
+  qs: [['この絵を見て強い印象を受けた。', '印象', [['いんしょう', '인상 ✅'], ['いんしょ', '★오독'], ['いんぞう', '★오독'], ['いんそう', '★오독']], 0, false, '이 그림을 보고 강한 인상을 받았다.'], ['あの人たちとは交流がない。', '交流', [['ごうりゅ', '★오독'], ['こうりゅう', '교류 ✅'], ['ごうりゅう', '★오독'], ['こうりゅ', '★오독']], 1, false, '저 사람들과는 교류가 없다.'], ['ぼくはどんなけんかにも勝ったことがない。', '勝った', [['かった', '이겼다 ✅'], ['かざった', '꾸몄다'], ['おった', '부러뜨렸다'], ['のこった', '남았다']], 0, false, '나는 어떤 싸움에도 이긴 적이 없다.'], ['駐車は30分以内です。', '駐車', [['しゅうしゃ', '★오독'], ['しゅしゃ', '★오독'], ['ちゅうしゃ', '주차 ✅'], ['ちゅしゃ', '★오독']], 2, false, '주차는 30분 이내입니다.'], ['そのレストランの人はみんな同じ制服を着ている。', '制服', [['せいふく', '제복 ✅'], ['せいふう', '★오독'], ['ようふく', '양복, 옷'], ['ようふう', '★오독']], 0, false, '그 레스토랑 사람들은 모두 같은 제복을 입고 있다.'], ['改札の前で待ってるよ。', '改札', [['かいさつ', '개찰구 ✅'], ['かいせつ', '해설'], ['けいさつ', '경찰'], ['けいせつ', '★오독']], 0, false, '개찰구 앞에서 기다릴게.'], ['社長に直接お目にかかりたいのですが。', '直接', [['ちょくせつ', '직접 ✅'], ['ちょくぜつ', '★오독'], ['ちょうせつ', '조절'], ['ちょうぜつ', '초절, 탁월']], 0, false, '사장님을 직접 뵙고 싶습니다만.'], ['体調が悪いので早退します。', '早退', [['そうてい', '★오독'], ['そうたい', '조퇴 ✅'], ['ぞうたい', '★오독'], ['とうだい', '등대']], 1, false, '몸이 안 좋아서 조퇴하겠습니다.'], ['列車は8時に東京駅に到着した。', '到着', [['とつく', '★오독'], ['とうちゃく', '도착 ✅'], ['とうたい', '★오독'], ['とうじゃく', '★오독']], 1, false, '열차는 8시에 도쿄역에 도착했다.'], ['昨日体重を測った。', '測った', [['まもった', '지켰다'], ['したがった', '따랐다'], ['しまった', '(아차!)'], ['はかった', '측정했다 ✅']], 3, false, '어제 체중을 쟀다.']]
+}, {
+  id: 5,
+  title: '확인문제 5',
+  qs: [['わたしは、普通朝食前に新聞を読みます。', '普通', [['ふうつう', '★오독'], ['ふつう', '보통 ✅'], ['ふうだん', '★오독'], ['ふだん', '평소']], 1, false, '나는 보통 아침식사 전에 신문을 읽습니다.'], ['あまり遅くならないうちに帰ってきなさい。', '遅く', [['おそく', '늦게 ✅'], ['はやく', '빠르게'], ['みじかく', '짧게'], ['とおく', '멀게']], 0, false, '너무 늦지 않게 돌아오너라.'], ['祖父は年のせいで少し腰が曲がっています。', '腰', [['むね', '가슴'], ['かた', '어깨'], ['こし', '허리 ✅'], ['くび', '목']], 2, false, '할아버지는 나이 때문에 허리가 조금 굽어 있습니다.'], ['興味ある部分には下線を引いてください。', '部分', [['ぶぶん', '부분 ✅'], ['ぶうぶん', '★오독'], ['ぶんこ', '문고'], ['ぶぶんこ', '★오독']], 0, false, '흥미 있는 부분에는 밑줄을 그어 주세요.'], ['トマトに塩をつけて食べた。', '塩', [['まめ', '콩'], ['こめ', '쌀'], ['あぶら', '기름'], ['しお', '소금 ✅']], 3, false, '토마토에 소금을 찍어 먹었다.'], ['このテーブルの位置を変えたほうがいいよ。', '位置', [['とち', '토지'], ['いち', '위치 ✅'], ['とじ', '★오독'], ['いじ', '유지']], 1, false, '이 테이블 위치를 바꾸는 게 좋겠어.'], ['その店はもうクリスマスの商品をならべている。', '商品', [['せいひん', '제품'], ['しょうひん', '상품 ✅'], ['しょひん', '★오독'], ['しょうびん', '★오독']], 1, false, '그 가게는 벌써 크리스마스 상품을 진열하고 있다.'], ['その試合に約3万人の観客が集まった。', '観客', [['けんきゃく', '★오독'], ['かんきゃく', '관객 ✅'], ['きゃくせき', '객석'], ['かんきょう', '환경']], 1, false, '그 시합에 약 3만 명의 관객이 모였다.'], ['司会者が説明を加えました。', '加えました', [['くわえました', '더했습니다 ✅'], ['かぞえました', '세었습니다'], ['おえました', '끝냈습니다'], ['つたえました', '전달했습니다']], 0, false, '사회자가 설명을 덧붙였습니다.'], ['転んで前歯が2本折れた。', '折れた', [['われた', '깨졌다'], ['おれた', '부러졌다 ✅'], ['ぬれた', '젖었다'], ['こわれた', '고장났다']], 1, false, '넘어져서 앞니가 2개 부러졌다.']]
+}, {
+  id: 6,
+  title: '확인문제 6',
+  qs: [['このえんぴつで線をかいてください。', '線', [['ず', '그림, 도표'], ['せん', '선 ✅'], ['え', '그림'], ['もじ', '문자']], 1, false, '이 연필로 선을 그어 주세요.'], ['安全な場所へ逃げてください。', '逃げて', [['にげて', '도망쳐서 ✅'], ['こげて', '타서, 눌어서'], ['なげて', '던져서'], ['あげて', '들어올려서']], 0, false, '안전한 곳으로 도망치세요.'], ['娘は来年卒業します。', '卒業', [['さつきょう', '★오독'], ['さつぎょう', '★오독'], ['そうきょう', '★오독'], ['そつぎょう', '졸업 ✅']], 3, false, '딸은 내년에 졸업합니다.'], ['こたつが恋しい季節になった。', '恋しい', [['やさしい', '다정하다'], ['こいしい', '그립다 ✅'], ['したしい', '친하다'], ['なつかしい', '그립다, 정겹다']], 1, false, '고타쓰가 그리운 계절이 되었다.'], ['彼が腕をぐるぐる回した。', '回した', [['おした', '눌렀다'], ['まわした', '돌렸다 ✅'], ['のばした', '뻗었다'], ['おろした', '내렸다']], 1, false, '그가 팔을 빙글빙글 돌렸다.'], ['手術は成功した。', '手術', [['しゅしゅつ', '★오독'], ['てじゅつ', '★오독'], ['てしゅつ', '★오독'], ['しゅじゅつ', '수술 ✅']], 3, false, '수술은 성공했다.'], ['階段で転んでしまった。', '転んで', [['ころんで', '넘어져서 ✅'], ['はこんで', '옮겨서'], ['ふんで', '밟아서'], ['つんで', '쌓아서, 실어서']], 0, false, '계단에서 넘어져 버렸다.'], ['ゆでる前に豆を一晩水につけておいてください。', '豆', [['いも', '감자, 고구마'], ['こな', '가루'], ['まめ', '콩 ✅'], ['かい', '조개, 회']], 2, false, '삶기 전에 콩을 하룻밤 물에 담가 두세요.'], ['彼の長年の努力が実った。', '努力', [['ぎょうりょく', '★오독'], ['きょうりょく', '협력'], ['とりょく', '★오독'], ['どりょく', '노력 ✅']], 3, false, '그의 오랜 노력이 결실을 맺었다.'], ['病院で血圧を測ってもらった。', '血圧', [['けつえき', '혈액'], ['けつあつ', '혈압 ✅'], ['ちいき', '지역'], ['ちあつ', '★오독']], 1, false, '병원에서 혈압을 측정받았다.']]
+}, {
+  id: 7,
+  title: '확인문제 7',
+  qs: [['彼は動作がにぶい。', '動作', [['とうさ', '★오독'], ['どうさ', '동작 ✅'], ['とうさく', '★오독'], ['どうさく', '★오독']], 1, false, '그는 동작이 굼뜨다.'], ['そのプレゼントはきれいな紙で包んでありました。', '包んで', [['むすんで', '묶어서'], ['あんで', '★오독'], ['つつんで', '포장해서 ✅'], ['はこんで', '옮겨서']], 2, false, '그 선물은 예쁜 종이로 포장되어 있었습니다.'], ['手紙はきのう確かに受け取りました。', '確かに', [['たしかに', '확실히 ✅'], ['しずかに', '조용히'], ['たじかに', '★오독'], ['しすかに', '★오독']], 0, false, '편지는 어제 확실히 받았습니다.'], ['池田さんは機械に弱いらしい。', '機械', [['きかい', '기계 ✅'], ['きけい', '★오독'], ['ぎかい', '의회'], ['ぎけい', '★오독']], 0, false, '이케다 씨는 기계에 약한 것 같다.'], ['あすから禁煙するつもりです。', '禁煙', [['きねん', '★오독'], ['きんえん', '금연 ✅'], ['きんねん', '★오독'], ['きえん', '★오독']], 1, false, '내일부터 금연할 생각입니다.'], ['わたしは山本先生の講義の主要な点をメモした。', '主要', [['しゅよ', '★오독'], ['じゅよ', '수여'], ['じゅよう', '수요'], ['しゅよう', '주요 ✅']], 3, false, '나는 야마모토 선생님 강의의 주요한 점을 메모했다.'], ['過去から学ぶことは多い。', '過去', [['かこ', '과거 ✅'], ['かきょ', '★오독'], ['かきょう', '★오독'], ['こきょう', '고향']], 0, false, '과거로부터 배울 것은 많다.'], ['音楽は人類に共通のことばだ。', '共通', [['きょうつ', '★오독'], ['こうつ', '★오독'], ['きょうつう', '공통 ✅'], ['こうつう', '교통']], 2, false, '음악은 인류에게 공통되는 언어다.'], ['丸い皿を買った。', '丸い', [['ひくい', '낮다'], ['まるい', '둥글다 ✅'], ['かるい', '가볍다'], ['ほそい', '가늘다']], 1, false, '둥근 접시를 샀다.'], ['駅はどちらの方向ですか。', '方向', [['ほうほう', '방법'], ['ほうこう', '방향 ✅'], ['ほうごう', '★오독'], ['ぼうこう', '방광']], 1, false, '역은 어느 방향입니까?']]
+}];
+
+/* ─── 과(課) 목록: 2과 이상 추가 시 V2/P2 만들고 아래 배열에 한 줄만 추가하면 됨 ── */
+var LESSONS = [{
+  n: 1,
+  title: '1과',
+  sub: '기출어휘 2016~2024',
+  badge: 'l1',
+  vocab: V1,
+  probs: P1
+}
+// { n: 2, title: '2과', sub: '...', badge: 'l2', vocab: V2, probs: P2 },
+];
+function getLesson(n) {
+  return LESSONS.find(function (l) {
+    return l.n === n;
+  }) || LESSONS[0];
+}
+
+/* ─── 오답노트 저장 (localStorage) ───────────────────────────────── */
+var STORAGE_KEY_V = 'jlpt_n3_wrongV';
+var STORAGE_KEY_P = 'jlpt_n3_wrongP';
+function emptyWrongMap() {
+  var o = {};
+  for (var _i = 0, _LESSONS = LESSONS; _i < _LESSONS.length; _i++) {
+    var l = _LESSONS[_i];
+    o[l.n] = new Set();
+  }
+  return o;
+}
+function loadWrongV() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY_V);
+    if (!raw) return emptyWrongMap();
+    var obj = JSON.parse(raw);
+    var result = {};
+    for (var _i2 = 0, _LESSONS2 = LESSONS; _i2 < _LESSONS2.length; _i2++) {
+      var l = _LESSONS2[_i2];
+      result[l.n] = new Set(obj[l.n] || []);
+    }
+    return result;
+  } catch (e) {
+    return emptyWrongMap();
+  }
+}
+function loadWrongP() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY_P);
+    if (!raw) return emptyWrongMap();
+    var obj = JSON.parse(raw);
+    var result = {};
+    for (var _i3 = 0, _LESSONS3 = LESSONS; _i3 < _LESSONS3.length; _i3++) {
+      var l = _LESSONS3[_i3];
+      result[l.n] = new Set(obj[l.n] || []);
+    }
+    return result;
+  } catch (e) {
+    return emptyWrongMap();
+  }
+}
+function saveWrongV(wrongV) {
+  try {
+    var obj = {};
+    for (var _i4 = 0, _LESSONS4 = LESSONS; _i4 < _LESSONS4.length; _i4++) {
+      var l = _LESSONS4[_i4];
+      obj[l.n] = _toConsumableArray(wrongV[l.n]);
+    }
+    localStorage.setItem(STORAGE_KEY_V, JSON.stringify(obj));
+  } catch (e) {}
+}
+function saveWrongP(wrongP) {
+  try {
+    var obj = {};
+    for (var _i5 = 0, _LESSONS5 = LESSONS; _i5 < _LESSONS5.length; _i5++) {
+      var l = _LESSONS5[_i5];
+      obj[l.n] = _toConsumableArray(wrongP[l.n]);
+    }
+    localStorage.setItem(STORAGE_KEY_P, JSON.stringify(obj));
+  } catch (e) {}
+}
+
+/* ─── 유틸 ───────────────────────────────────────────────────────── */
+function shuffle(arr) {
+  var a = _toConsumableArray(arr);
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var _ref2 = [a[j], a[i]];
+    a[i] = _ref2[0];
+    a[j] = _ref2[1];
+  }
+  return a;
+}
+
+/* ─── 스마트 오답 생성기 ─────────────────────────────────────────
+   type1 (히라가나→한글): 한국어 의미 유사도
+   type2 (한자→한글):     한자 표기 유사도
+   type3 (한자→히라가나): 히라가나 읽기 유사도
+─────────────────────────────────────────────────────────────────── */
+function scoreSimilarity(a, b, type) {
+  if (!a || !b) return 0;
+  var score = 0;
+  if (type === 1) {
+    if (a[0] === b[0]) score += 3;
+    if (a.length === b.length) score += 2;
+    var _iterator2 = _createForOfIteratorHelper(a),
+      _step2;
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var ch = _step2.value;
+        if (b.includes(ch)) score += 1;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  } else {
+    // type2(한자 유사), type3(히라가나 유사) 모두 같은 방식으로 처리
+    if (a[0] === b[0]) score += 5;
+    if (a.slice(-1) === b.slice(-1)) score += 2;
+    if (a.length === b.length) score += 2;
+    var _iterator3 = _createForOfIteratorHelper(a),
+      _step3;
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var _ch = _step3.value;
+        if (b.includes(_ch)) score += 1;
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+  }
+  return score;
+}
+function makeQuizOpts(vocab, idx, type) {
+  var correct = vocab[idx];
+  // type1,2: 정답은 한국어(field=2), type3: 정답은 히라가나(field=1)
+  var ansField = type <= 2 ? 2 : 1;
+  var compareField = ansField;
+  var correctVal = correct[ansField];
+  var pool = vocab.filter(function (_, i) {
+    return i !== idx;
+  });
+  // type3(한자→히라가나): 한자 표기가 있는 어휘만 오답 후보로 사용
+  if (type === 3) pool = pool.filter(function (w) {
+    return w[0] !== w[1];
+  });
+  var scored = pool.map(function (w) {
+    return {
+      w: w,
+      score: scoreSimilarity(correctVal, w[compareField], type)
+    };
+  }).sort(function (a, b) {
+    return b.score - a.score;
+  });
+  var topPool = scored.slice(0, Math.min(15, scored.length));
+  var shuffledTop = shuffle(_toConsumableArray(topPool));
+  var seen = new Set([correctVal]);
+  var wrongs = [];
+  var _iterator4 = _createForOfIteratorHelper(shuffledTop),
+    _step4;
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var _w = _step4.value.w;
+      var _v = _w[compareField];
+      if (!seen.has(_v) && _v) {
+        seen.add(_v);
+        wrongs.push(_v);
+      }
+      if (wrongs.length === 3) break;
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+  if (wrongs.length < 3) {
+    var rest = shuffle(scored.slice(15));
+    var _iterator5 = _createForOfIteratorHelper(rest),
+      _step5;
+    try {
+      for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+        var w = _step5.value.w;
+        var v = w[compareField];
+        if (!seen.has(v) && v) {
+          seen.add(v);
+          wrongs.push(v);
+        }
+        if (wrongs.length === 3) break;
+      }
+    } catch (err) {
+      _iterator5.e(err);
+    } finally {
+      _iterator5.f();
+    }
+  }
+  var all = shuffle([correctVal].concat(wrongs));
+  return {
+    opts: all,
+    correctIdx: all.indexOf(correctVal)
+  };
+}
+
+/* ─── APP ────────────────────────────────────────────────────────── */
+function App() {
+  var _useState = useState('home'),
+    _useState2 = _slicedToArray(_useState, 2),
+    screen = _useState2[0],
+    setScreen = _useState2[1];
+  var _useState3 = useState(1),
+    _useState4 = _slicedToArray(_useState3, 2),
+    lesson = _useState4[0],
+    setLesson = _useState4[1];
+  var _useState5 = useState(1),
+    _useState6 = _slicedToArray(_useState5, 2),
+    quizType = _useState6[0],
+    setQuizType = _useState6[1];
+  var _useState7 = useState(0),
+    _useState8 = _slicedToArray(_useState7, 2),
+    pracSetIdx = _useState8[0],
+    setPracSetIdx = _useState8[1];
+  var _useState9 = useState('all'),
+    _useState0 = _slicedToArray(_useState9, 2),
+    vocabFilter = _useState0[0],
+    setVocabFilter = _useState0[1];
+  var _useState1 = useState(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    quizRandom = _useState10[0],
+    setQuizRandom = _useState10[1];
+  var _useState11 = useState(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    pracRandom = _useState12[0],
+    setPracRandom = _useState12[1];
+  var _useState13 = useState(function () {
+      return loadWrongV();
+    }),
+    _useState14 = _slicedToArray(_useState13, 2),
+    wrongV = _useState14[0],
+    setWrongV = _useState14[1];
+  var _useState15 = useState(function () {
+      return loadWrongP();
+    }),
+    _useState16 = _slicedToArray(_useState15, 2),
+    wrongP = _useState16[0],
+    setWrongP = _useState16[1];
+  useEffect(function () {
+    var el = document.createElement('style');
+    el.textContent = CSS;
+    document.head.appendChild(el);
+    return function () {
+      if (document.head.contains(el)) document.head.removeChild(el);
+    };
+  }, []);
+  useEffect(function () {
+    saveWrongV(wrongV);
+  }, [wrongV]);
+  useEffect(function () {
+    saveWrongP(wrongP);
+  }, [wrongP]);
+  var curLesson = getLesson(lesson);
+  var vocab = curLesson.vocab;
+  var probs = curLesson.probs;
+  var allVocab = useMemo(function () {
+    return LESSONS.flatMap(function (l) {
+      return l.vocab;
+    });
+  }, []);
+  var allProbs = useMemo(function () {
+    return LESSONS.flatMap(function (l) {
+      return l.probs;
+    });
+  }, []);
+  var goHome = function goHome() {
+    return setScreen('home');
+  };
+  var goMenu = function goMenu(l) {
+    setLesson(l);
+    setScreen('menu');
+  };
+  var addWrongV = function addWrongV(i) {
+    return setWrongV(function (p) {
+      return _objectSpread(_objectSpread({}, p), {}, _defineProperty({}, lesson, new Set([].concat(_toConsumableArray(p[lesson]), [i]))));
+    });
+  };
+  var removeWrongV = function removeWrongV(i) {
+    return setWrongV(function (p) {
+      var s = new Set(p[lesson]);
+      s.delete(i);
+      return _objectSpread(_objectSpread({}, p), {}, _defineProperty({}, lesson, s));
+    });
+  };
+  var addWrongP = function addWrongP(key) {
+    return setWrongP(function (p) {
+      return _objectSpread(_objectSpread({}, p), {}, _defineProperty({}, lesson, new Set([].concat(_toConsumableArray(p[lesson]), [key]))));
+    });
+  };
+  var removeWrongP = function removeWrongP(key) {
+    return setWrongP(function (p) {
+      var s = new Set(p[lesson]);
+      s.delete(key);
+      return _objectSpread(_objectSpread({}, p), {}, _defineProperty({}, lesson, s));
+    });
+  };
+  var wrongVCount = wrongV[lesson].size;
+  var wrongPCount = wrongP[lesson].size;
+  var wrongCounts = useMemo(function () {
+    var o = {};
+    for (var _i6 = 0, _LESSONS6 = LESSONS; _i6 < _LESSONS6.length; _i6++) {
+      var l = _LESSONS6[_i6];
+      o[l.n] = wrongV[l.n] ? wrongV[l.n].size : 0;
+    }
+    return o;
+  }, [wrongV]);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "app"
+  }, screen === 'home' && /*#__PURE__*/React.createElement(HomeScreen, {
+    onSelect: goMenu,
+    wrongCounts: wrongCounts
+  }), screen === 'menu' && /*#__PURE__*/React.createElement(MenuScreen, {
+    lesson: curLesson,
+    probs: probs,
+    vocab: vocab,
+    wrongVCount: wrongVCount,
+    wrongPCount: wrongPCount,
+    onBack: goHome,
+    onVocab: function onVocab() {
+      return setScreen('vocab');
+    },
+    onQuiz: function onQuiz(t) {
+      setQuizType(t);
+      setScreen('quiz');
+    },
+    onPractice: function onPractice() {
+      return setScreen('practice');
+    },
+    onWrong: function onWrong() {
+      return setScreen('wrong');
+    },
+    quizRandom: quizRandom,
+    setQuizRandom: setQuizRandom,
+    pracRandom: pracRandom,
+    setPracRandom: setPracRandom
+  }), screen === 'vocab' && /*#__PURE__*/React.createElement(VocabScreen, {
+    vocab: vocab,
+    lesson: lesson,
+    wrongSet: wrongV[lesson],
+    filter: vocabFilter,
+    setFilter: setVocabFilter,
+    onAddWrong: addWrongV,
+    onRemoveWrong: removeWrongV,
+    onBack: function onBack() {
+      return setScreen('menu');
+    }
+  }), screen === 'quiz' && /*#__PURE__*/React.createElement(QuizScreen, {
+    vocab: quizRandom ? allVocab : vocab,
+    lesson: lesson,
+    quizType: quizType,
+    isRandom: quizRandom,
+    onAddWrong: addWrongV,
+    onBack: function onBack() {
+      return setScreen('menu');
+    }
+  }), screen === 'practice' && /*#__PURE__*/React.createElement(PracticeSetScreen, {
+    probs: probs,
+    allProbs: allProbs,
+    lesson: lesson,
+    wrongSet: wrongP[lesson],
+    isRandom: pracRandom,
+    setIsRandom: setPracRandom,
+    onBack: function onBack() {
+      return setScreen('menu');
+    },
+    onSelect: function onSelect(i) {
+      setPracSetIdx(i);
+      setScreen('pracSolve');
+    }
+  }), screen === 'pracSolve' && /*#__PURE__*/React.createElement(PracticeSolveScreen, {
+    probSet: (pracRandom ? allProbs : probs)[pracSetIdx],
+    lesson: lesson,
+    wrongSet: wrongP[lesson],
+    onAddWrong: addWrongP,
+    onRemoveWrong: removeWrongP,
+    onBack: function onBack() {
+      return setScreen('practice');
+    }
+  }), screen === 'wrong' && /*#__PURE__*/React.createElement(WrongScreen, {
+    vocab: vocab,
+    wrongVIdx: wrongV[lesson],
+    wrongPKeys: wrongP[lesson],
+    probs: probs,
+    onBack: function onBack() {
+      return setScreen('menu');
+    },
+    onClearVocab: removeWrongV
+  }));
+}
+
+/* ─── HOME ─────────────────────────────────────────────────────────── */
+function HomeScreen(_ref3) {
+  var onSelect = _ref3.onSelect,
+    wrongCounts = _ref3.wrongCounts;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "home-hdr"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "home-logo"
+  }, "🇯🇵"), /*#__PURE__*/React.createElement("div", {
+    className: "home-title"
+  }, "JLPT N3 학습앱"), /*#__PURE__*/React.createElement("div", {
+    className: "home-sub"
+  }, "한자읽기 기출어휘 · 확인문제", /*#__PURE__*/React.createElement("br", null), "다락원 한권으로 끝내기 스타일")), LESSONS.map(function (l) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: l.n,
+      className: "lesson-card",
+      onClick: function onClick() {
+        return onSelect(l.n);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "lesson-badge ".concat(l.badge)
+    }, l.n), /*#__PURE__*/React.createElement("div", {
+      className: "lesson-info"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "lesson-name",
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px'
+      }
+    }, l.title, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: '10px',
+        fontWeight: '700',
+        padding: '1px 7px',
+        borderRadius: '10px',
+        background: 'var(--or)',
+        color: '#fff'
+      }
+    }, "한자읽기")), /*#__PURE__*/React.createElement("div", {
+      className: "lesson-year"
+    }, l.sub), /*#__PURE__*/React.createElement("div", {
+      className: "lesson-wc"
+    }, "📝 어휘 ", l.vocab.length, "개 · 확인문제 ", l.probs.length, "세트", wrongCounts[l.n] > 0 && /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: 'var(--rd)',
+        marginLeft: 8
+      }
+    }, "⚠ 오답 ", wrongCounts[l.n]))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        color: 'var(--tx3)',
+        fontSize: '20px'
+      }
+    }, "›"));
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      margin: '16px 16px 0',
+      padding: '14px 16px',
+      background: 'var(--bg2)',
+      borderRadius: '12px',
+      border: '1px solid var(--bg3)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: 'var(--or)',
+      fontWeight: '700',
+      marginBottom: '10px'
+    }
+  }, "📋 문제 유형 안내"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '12px',
+      color: 'var(--tx2)',
+      lineHeight: '1.6'
+    }
+  }, "밑줄 친 한자·단어의 히라가나 읽기를 4개 보기에서 고르는 문제입니다 (기출어휘 연도순 정리 + 확인문제 7세트).")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      margin: '10px 16px 0',
+      padding: '12px 16px',
+      background: 'var(--bg2)',
+      borderRadius: '12px',
+      border: '1px solid var(--bg3)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: 'var(--or)',
+      fontWeight: '700',
+      marginBottom: '8px'
+    }
+  }, "📖 학습 가이드"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '12px',
+      color: 'var(--tx2)',
+      lineHeight: '1.9'
+    }
+  }, "1. ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: 'var(--tx)'
+    }
+  }, "어휘 학습"), " — 플래시카드 + 암기 힌트", /*#__PURE__*/React.createElement("br", null), "2. ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: 'var(--tx)'
+    }
+  }, "퀴즈 3종"), " — 히라가나→한글 / 한자→한글 / 한자→히라가나", /*#__PURE__*/React.createElement("br", null), "3. ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: 'var(--tx)'
+    }
+  }, "확인문제 풀이"), " — 기출 확인문제 7세트 + 해석", /*#__PURE__*/React.createElement("br", null), "4. ", /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: 'var(--tx)'
+    }
+  }, "오답노트"), " — 틀린 어휘·문제만 모아서 복습", /*#__PURE__*/React.createElement("br", null), "※ 앞으로 2과 이상이 추가될 예정입니다.")));
+}
+
+/* ─── MENU ─────────────────────────────────────────────────────────── */
+function MenuScreen(_ref4) {
+  var lesson = _ref4.lesson,
+    probs = _ref4.probs,
+    vocab = _ref4.vocab,
+    wrongVCount = _ref4.wrongVCount,
+    wrongPCount = _ref4.wrongPCount,
+    onBack = _ref4.onBack,
+    onVocab = _ref4.onVocab,
+    onQuiz = _ref4.onQuiz,
+    onPractice = _ref4.onPractice,
+    onWrong = _ref4.onWrong,
+    quizRandom = _ref4.quizRandom,
+    setQuizRandom = _ref4.setQuizRandom,
+    pracRandom = _ref4.pracRandom,
+    setPracRandom = _ref4.setPracRandom;
+  var totalWrong = wrongVCount + wrongPCount;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 홈"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title",
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px'
+    }
+  }, lesson.title, " 학습", /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: '10px',
+      fontWeight: '700',
+      padding: '1px 7px',
+      borderRadius: '10px',
+      background: 'var(--or)',
+      color: '#fff'
+    }
+  }, "한자읽기")), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, vocab.length, "어휘")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-grid"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell full",
+    onClick: onVocab
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "📚"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "어휘 학습"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, "플래시카드 + 암기 힌트")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell",
+    onClick: function onClick() {
+      return onQuiz(1);
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "🔤"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "퀴즈 ①"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, "히라가나 → 한글")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell",
+    onClick: function onClick() {
+      return onQuiz(2);
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "漢"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "퀴즈 ②"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, "한자 → 한글")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell full",
+    onClick: function onClick() {
+      return onQuiz(3);
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "✍️"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "퀴즈 ③"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, "한자 → 히라가나")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell full",
+    style: {
+      padding: '12px 16px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '12px',
+      color: 'var(--tx2)',
+      fontWeight: '600',
+      marginBottom: '8px'
+    }
+  }, "🎲 퀴즈 범위 선택"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '8px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setQuizRandom(false);
+    },
+    style: {
+      flex: 1,
+      padding: '8px',
+      borderRadius: '8px',
+      fontSize: '12px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      border: '2px solid',
+      borderColor: !quizRandom ? 'var(--or)' : 'var(--bg3)',
+      background: !quizRandom ? 'var(--or)' : 'var(--bg3)',
+      color: !quizRandom ? '#fff' : 'var(--tx2)'
+    }
+  }, "이 과만"), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setQuizRandom(true);
+    },
+    style: {
+      flex: 1,
+      padding: '8px',
+      borderRadius: '8px',
+      fontSize: '12px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      border: '2px solid',
+      borderColor: quizRandom ? '#a855f7' : 'var(--bg3)',
+      background: quizRandom ? '#a855f7' : 'var(--bg3)',
+      color: quizRandom ? '#fff' : 'var(--tx2)'
+    }
+  }, "🎲 전 과목 랜덤"))), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell full",
+    onClick: onPractice
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "📝"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "확인문제 풀이"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, probs.length, "세트 · ", probs.length * 10, "문항 · 해석 제공")), /*#__PURE__*/React.createElement("div", {
+    className: "menu-cell full danger",
+    onClick: onWrong
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "menu-icon"
+  }, "⚠️"), /*#__PURE__*/React.createElement("div", {
+    className: "menu-label"
+  }, "오답 복습", totalWrong > 0 && /*#__PURE__*/React.createElement("span", {
+    className: "menu-badge"
+  }, totalWrong)), /*#__PURE__*/React.createElement("div", {
+    className: "menu-hint"
+  }, "어휘 ", wrongVCount, "개 · 문제 ", wrongPCount, "개"))));
+}
+
+/* ─── VOCAB (플래시카드) ─────────────────────────────────────────── */
+function VocabScreen(_ref5) {
+  var vocab = _ref5.vocab,
+    lesson = _ref5.lesson,
+    wrongSet = _ref5.wrongSet,
+    filter = _ref5.filter,
+    setFilter = _ref5.setFilter,
+    onAddWrong = _ref5.onAddWrong,
+    onRemoveWrong = _ref5.onRemoveWrong,
+    onBack = _ref5.onBack;
+  var _useState17 = useState(0),
+    _useState18 = _slicedToArray(_useState17, 2),
+    idx = _useState18[0],
+    setIdx = _useState18[1];
+  var _useState19 = useState(false),
+    _useState20 = _slicedToArray(_useState19, 2),
+    flipped = _useState20[0],
+    setFlipped = _useState20[1];
+  var _useState21 = useState(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    showHint = _useState22[0],
+    setShowHint = _useState22[1];
+  var filtered = useMemo(function () {
+    if (filter === 'imp') return shuffle(vocab.map(function (v, i) {
+      return {
+        v: v,
+        i: i
+      };
+    }).filter(function (x) {
+      return x.v[4];
+    }));
+    if (filter === 'wrong') return shuffle(vocab.map(function (v, i) {
+      return {
+        v: v,
+        i: i
+      };
+    }).filter(function (x) {
+      return wrongSet.has(x.i);
+    }));
+    return shuffle(vocab.map(function (v, i) {
+      return {
+        v: v,
+        i: i
+      };
+    }));
+  }, [vocab, filter, wrongSet]);
+  useEffect(function () {
+    setIdx(0);
+    setFlipped(false);
+    setShowHint(false);
+  }, []);
+  if (!filtered.length) {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "nav"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "nav-back",
+      onClick: onBack
+    }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+      className: "nav-title"
+    }, "어휘 학습")), /*#__PURE__*/React.createElement("div", {
+      className: "empty"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "empty-icon"
+    }, "📭"), /*#__PURE__*/React.createElement("div", {
+      className: "empty-text"
+    }, "해당 항목이 없습니다")));
+  }
+  var safeIdx = Math.min(idx, filtered.length - 1);
+  var _filtered$safeIdx = filtered[safeIdx],
+    word = _filtered$safeIdx.v,
+    realIdx = _filtered$safeIdx.i;
+  var isWrong = wrongSet.has(realIdx);
+  var next = function next() {
+    setFlipped(false);
+    setShowHint(false);
+    setIdx(function (i) {
+      return (i + 1) % filtered.length;
+    });
+  };
+  var prev = function prev() {
+    setFlipped(false);
+    setShowHint(false);
+    setIdx(function (i) {
+      return (i - 1 + filtered.length) % filtered.length;
+    });
+  };
+  var handleMiss = function handleMiss() {
+    onAddWrong(realIdx);
+    next();
+  };
+  var handleHit = function handleHit() {
+    if (isWrong) onRemoveWrong(realIdx);
+    next();
+  };
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title"
+  }, "어휘 학습"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, safeIdx + 1, "/", filtered.length)), /*#__PURE__*/React.createElement("div", {
+    className: "fc-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fc-header"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "fc-counter"
+  }, isWrong ? '⚠️ 오답' : ''), /*#__PURE__*/React.createElement("div", {
+    className: "fc-filter"
+  }, ['all', 'imp', 'wrong'].map(function (f) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: f,
+      className: "fc-filter-btn ".concat(filter === f ? 'active' : ''),
+      onClick: function onClick() {
+        return setFilter(f);
+      }
+    }, f === 'all' ? '전체' : f === 'imp' ? '⭐중요' : "⚠오답(".concat(wrongSet.size, ")"));
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px',
+      marginBottom: '14px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      height: '6px',
+      background: 'var(--bg3)',
+      borderRadius: '3px',
+      overflow: 'hidden',
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      height: '100%',
+      borderRadius: '3px',
+      background: 'linear-gradient(90deg,var(--or),#f59e0b)',
+      width: "".concat(Math.round((safeIdx + 1) / filtered.length * 100), "%"),
+      transition: 'width .4s cubic-bezier(.34,1.56,.64,1)'
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: '12px',
+      color: 'var(--or)',
+      fontWeight: '700',
+      whiteSpace: 'nowrap'
+    }
+  }, safeIdx + 1, "/", filtered.length, " (", Math.round((safeIdx + 1) / filtered.length * 100), "%)")), /*#__PURE__*/React.createElement("div", {
+    className: "fc-card ".concat(flipped ? 'flipped' : ''),
+    onClick: function onClick() {
+      setFlipped(function (f) {
+        return !f;
+      });
+      setShowHint(false);
+    }
+  }, word[4] && /*#__PURE__*/React.createElement("div", {
+    className: "fc-imp"
+  }, "⭐ 중요"), !flipped ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "fc-kanji"
+  }, word[0]), word[3] && !showHint && /*#__PURE__*/React.createElement("button", {
+    className: "fc-hint-btn",
+    onClick: function onClick(e) {
+      e.stopPropagation();
+      setShowHint(true);
+    }
+  }, "💡 암기 힌트"), showHint && /*#__PURE__*/React.createElement("div", {
+    className: "fc-hint",
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, word[3]), /*#__PURE__*/React.createElement("div", {
+    className: "fc-tap"
+  }, "탭하여 뒤집기 👆")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "fc-kanji fc-small"
+  }, word[0]), /*#__PURE__*/React.createElement("div", {
+    className: "fc-hira"
+  }, word[1]), /*#__PURE__*/React.createElement("div", {
+    className: "fc-korean"
+  }, word[2]), word[3] && !showHint && /*#__PURE__*/React.createElement("button", {
+    className: "fc-hint-btn",
+    onClick: function onClick(e) {
+      e.stopPropagation();
+      setShowHint(true);
+    }
+  }, "💡 암기 힌트"), showHint && /*#__PURE__*/React.createElement("div", {
+    className: "fc-hint"
+  }, word[3]))), flipped && /*#__PURE__*/React.createElement("div", {
+    className: "fc-actions"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "fc-action miss",
+    onClick: handleMiss
+  }, "😰 몰랐어요"), /*#__PURE__*/React.createElement("button", {
+    className: "fc-action hit",
+    onClick: handleHit
+  }, "✅ 알았어요")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '8px',
+      marginTop: '12px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-ghost",
+    style: {
+      flex: 1
+    },
+    onClick: prev
+  }, "◀ 이전"), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-ghost",
+    style: {
+      flex: 1
+    },
+    onClick: next
+  }, "다음 ▶"))));
+}
+
+/* ─── QUIZ ─────────────────────────────────────────────────────────── */
+function QuizScreen(_ref6) {
+  var vocab = _ref6.vocab,
+    lesson = _ref6.lesson,
+    quizType = _ref6.quizType,
+    isRandom = _ref6.isRandom,
+    onAddWrong = _ref6.onAddWrong,
+    onBack = _ref6.onBack;
+  var typeLabels = ['', '히라가나 → 한글', '한자 → 한글', '한자 → 히라가나'];
+  // type3(한자→히라가나)는 한자 표기가 없는(표기=히라가나) 어휘는 제외
+  var order = useMemo(function () {
+    var idxs = vocab.map(function (_, i) {
+      return i;
+    });
+    if (quizType === 3) idxs = idxs.filter(function (i) {
+      return vocab[i][0] !== vocab[i][1];
+    });
+    return shuffle(idxs);
+  }, [vocab, quizType]);
+  var _useState23 = useState(0),
+    _useState24 = _slicedToArray(_useState23, 2),
+    step = _useState24[0],
+    setStep = _useState24[1];
+  var _useState25 = useState(null),
+    _useState26 = _slicedToArray(_useState25, 2),
+    selected = _useState26[0],
+    setSelected = _useState26[1];
+  var _useState27 = useState([]),
+    _useState28 = _slicedToArray(_useState27, 2),
+    results = _useState28[0],
+    setResults = _useState28[1];
+  var _useState29 = useState(false),
+    _useState30 = _slicedToArray(_useState29, 2),
+    done = _useState30[0],
+    setDone = _useState30[1];
+  var _useState31 = useState(10),
+    _useState32 = _slicedToArray(_useState31, 2),
+    timer = _useState32[0],
+    setTimer = _useState32[1];
+  var timerRef = React.useRef(null);
+  var goNext = React.useCallback(function (isCorrect) {
+    setResults(function (r) {
+      return [].concat(_toConsumableArray(r), [isCorrect]);
+    });
+  }, []);
+  var advanceStep = React.useCallback(function () {
+    setSelected(null);
+    setTimer(10);
+    if (step + 1 >= order.length) setDone(true);else setStep(function (s) {
+      return s + 1;
+    });
+  }, [step, order]);
+  useEffect(function () {
+    if (done || selected !== null) {
+      clearInterval(timerRef.current);
+      return;
+    }
+    setTimer(10);
+    timerRef.current = setInterval(function () {
+      setTimer(function (t) {
+        if (t <= 1) {
+          clearInterval(timerRef.current);
+          setSelected(-1);
+          onAddWrong(order[step]);
+          goNext(false);
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return function () {
+      return clearInterval(timerRef.current);
+    };
+  }, [step, done, selected]);
+  var currentOpts = useMemo(function () {
+    if (step >= order.length) return null;
+    return makeQuizOpts(vocab, order[step], quizType);
+  }, [step, order, vocab, quizType]);
+  if (done || step >= order.length) {
+    var correct = results.filter(function (r) {
+      return r;
+    }).length;
+    var pct = Math.round(correct / results.length * 100);
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "nav"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "nav-back",
+      onClick: onBack
+    }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+      className: "nav-title"
+    }, "퀴즈 결과")), /*#__PURE__*/React.createElement("div", {
+      className: "qz-score"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "score-emoji"
+    }, pct >= 80 ? '🎉' : pct >= 60 ? '😊' : '💪'), /*#__PURE__*/React.createElement("div", {
+      className: "score-big"
+    }, pct, "%"), /*#__PURE__*/React.createElement("div", {
+      className: "score-pct"
+    }, correct, "/", results.length, " 정답"), /*#__PURE__*/React.createElement("div", {
+      className: "score-row"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "score-item"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "num g"
+    }, correct), /*#__PURE__*/React.createElement("div", {
+      className: "lbl"
+    }, "정답")), /*#__PURE__*/React.createElement("div", {
+      className: "score-item"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "num r"
+    }, results.length - correct), /*#__PURE__*/React.createElement("div", {
+      className: "lbl"
+    }, "오답"))), /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-or mt16",
+      onClick: function onClick() {
+        setStep(0);
+        setSelected(null);
+        setResults([]);
+        setDone(false);
+      }
+    }, "🔄 다시 풀기"), /*#__PURE__*/React.createElement("button", {
+      className: "btn btn-ghost mt8",
+      onClick: onBack
+    }, "메뉴로")));
+  }
+  var word = vocab[order[step]];
+  var opts = currentOpts.opts,
+    correctIdx = currentOpts.correctIdx;
+  // 문제 표시: type1=히라가나(field1), type2/3=한자(field0)
+  var displayVal = quizType === 1 ? word[1] : word[0];
+  var handleSelect = function handleSelect(oi) {
+    if (selected !== null) return;
+    clearInterval(timerRef.current);
+    setSelected(oi);
+    if (oi !== correctIdx) onAddWrong(order[step]);
+    goNext(oi === correctIdx);
+  };
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title"
+  }, "퀴즈 ", quizType, isRandom && /*#__PURE__*/React.createElement("span", {
+    className: "random-badge"
+  }, "🎲 전체")), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, step + 1, "/", order.length)), /*#__PURE__*/React.createElement("div", {
+    className: "qz-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "qz-info-bar"
+  }, /*#__PURE__*/React.createElement("span", null, "🟢 ", results.filter(function (r) {
+    return r;
+  }).length), /*#__PURE__*/React.createElement("div", {
+    className: "qz-timer"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "qz-timer-bar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "qz-timer-fill",
+    style: {
+      width: "".concat(timer / 10 * 100, "%"),
+      background: timer > 5 ? 'var(--gn)' : timer > 2 ? 'var(--gd)' : 'var(--rd)'
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "qz-timer-num",
+    style: {
+      color: timer > 5 ? 'var(--gn)' : timer > 2 ? 'var(--gd)' : 'var(--rd)'
+    }
+  }, selected === null ? timer : '')), /*#__PURE__*/React.createElement("span", null, "🔴 ", results.filter(function (r) {
+    return !r;
+  }).length)), /*#__PURE__*/React.createElement("div", {
+    className: "qz-prog"
+  }, order.map(function (_, i) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "qz-prog-seg ".concat(i < results.length ? results[i] ? 'correct' : 'wrong' : '')
+    });
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "qz-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "qz-type"
+  }, typeLabels[quizType]), /*#__PURE__*/React.createElement("div", {
+    className: "qz-word ".concat(quizType === 1 ? 'hira' : '')
+  }, displayVal), word[4] && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: 'var(--gd)',
+      marginTop: '8px'
+    }
+  }, "⭐ 중요 어휘")), /*#__PURE__*/React.createElement("div", {
+    className: "qz-opts"
+  }, opts.map(function (opt, oi) {
+    var cls = 'qz-opt';
+    if (selected !== null) {
+      if (oi === correctIdx) cls += ' correct';else if (oi === selected) cls += ' wrong';
+    }
+    return /*#__PURE__*/React.createElement("div", {
+      key: oi,
+      className: cls,
+      "data-disabled": selected !== null ? 'true' : undefined,
+      onClick: function onClick() {
+        return handleSelect(oi);
+      }
+    }, opt);
+  })), selected !== null && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "qz-feedback",
+    style: {
+      marginBottom: '10px'
+    }
+  }, selected === -1 ? "⏰ 시간 초과! 정답: ".concat(opts[correctIdx], " — ").concat(word[0], " = ").concat(word[1], " (").concat(word[2], ")") : selected === correctIdx ? "✅ 정답! ".concat(word[0], " = ").concat(word[1], " (").concat(word[2], ")") : "❌ 오답. 정답: ".concat(opts[correctIdx], " — ").concat(word[0], " = ").concat(word[1], " (").concat(word[2], ")")), /*#__PURE__*/React.createElement("button", {
+    onClick: advanceStep,
+    style: {
+      width: '100%',
+      padding: '13px',
+      borderRadius: '12px',
+      background: 'var(--or)',
+      color: '#fff',
+      fontWeight: '700',
+      fontSize: '15px',
+      cursor: 'pointer',
+      border: 'none',
+      letterSpacing: '0.5px'
+    }
+  }, step + 1 >= order.length ? '🏁 결과 보기' : '다음 문제 →'))));
+}
+
+/* ─── PRACTICE SET SELECT ───────────────────────────────────────────── */
+function PracticeSetScreen(_ref7) {
+  var probs = _ref7.probs,
+    allProbs = _ref7.allProbs,
+    lesson = _ref7.lesson,
+    wrongSet = _ref7.wrongSet,
+    isRandom = _ref7.isRandom,
+    setIsRandom = _ref7.setIsRandom,
+    onBack = _ref7.onBack,
+    onSelect = _ref7.onSelect;
+  var displayProbs = isRandom ? allProbs : probs;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title"
+  }, "확인문제 풀이", isRandom && /*#__PURE__*/React.createElement("span", {
+    className: "random-badge"
+  }, "🎲")), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, displayProbs.length, "세트")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '10px 16px 0'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: '8px'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setIsRandom(false);
+    },
+    style: {
+      flex: 1,
+      padding: '9px',
+      borderRadius: '10px',
+      fontSize: '12px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      border: '2px solid',
+      borderColor: !isRandom ? 'var(--or)' : 'var(--bg3)',
+      background: !isRandom ? 'var(--or)' : 'var(--bg2)',
+      color: !isRandom ? '#fff' : 'var(--tx2)'
+    }
+  }, "이 과만 (", probs.length, "세트)"), /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      return setIsRandom(true);
+    },
+    style: {
+      flex: 1,
+      padding: '9px',
+      borderRadius: '10px',
+      fontSize: '12px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      border: '2px solid',
+      borderColor: isRandom ? '#a855f7' : 'var(--bg3)',
+      background: isRandom ? '#a855f7' : 'var(--bg2)',
+      color: isRandom ? '#fff' : 'var(--tx2)'
+    }
+  }, "🎲 전 과목 (", allProbs.length, "세트)"))), /*#__PURE__*/React.createElement("div", {
+    className: "prac-sets",
+    style: {
+      paddingTop: '10px'
+    }
+  }, displayProbs.map(function (ps, i) {
+    var wrongInSet = ps.qs.filter(function (_, qi) {
+      return wrongSet.has("".concat(ps.id, "-").concat(qi));
+    }).length;
+    return /*#__PURE__*/React.createElement("div", {
+      key: ps.id,
+      className: "prac-set-card",
+      onClick: function onClick() {
+        return onSelect(i);
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '14px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "prac-num-badge"
+    }, ps.id), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "prac-set-title"
+    }, ps.title), /*#__PURE__*/React.createElement("div", {
+      className: "prac-set-score"
+    }, "10문항", wrongInSet > 0 && /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: 'var(--rd)',
+        marginLeft: 8
+      }
+    }, "⚠ 오답 ", wrongInSet)))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        color: 'var(--tx3)',
+        fontSize: '18px'
+      }
+    }, "›"));
+  })));
+}
+
+/* ─── PRACTICE SOLVE ────────────────────────────────────────────────── */
+function PracticeSolveScreen(_ref8) {
+  var probSet = _ref8.probSet,
+    lesson = _ref8.lesson,
+    wrongSet = _ref8.wrongSet,
+    onAddWrong = _ref8.onAddWrong,
+    onRemoveWrong = _ref8.onRemoveWrong,
+    onBack = _ref8.onBack;
+  var _useState33 = useState({}),
+    _useState34 = _slicedToArray(_useState33, 2),
+    answers = _useState34[0],
+    setAnswers = _useState34[1];
+  var handleAnswer = function handleAnswer(qi, oi) {
+    if (answers[qi] !== undefined) return;
+    setAnswers(function (a) {
+      return _objectSpread(_objectSpread({}, a), {}, _defineProperty({}, qi, oi));
+    });
+    var q = probSet.qs[qi];
+    var key = "".concat(probSet.id, "-").concat(qi);
+    if (oi !== q[3]) onAddWrong(key);else onRemoveWrong(key);
+  };
+  var answered = Object.keys(answers).length;
+  var total = probSet.qs.length;
+  var correct = Object.entries(answers).filter(function (_ref9) {
+    var _ref0 = _slicedToArray(_ref9, 2),
+      qi = _ref0[0],
+      oi = _ref0[1];
+    return oi === probSet.qs[+qi][3];
+  }).length;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 목록"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title"
+  }, probSet.title), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, answered, "/", total, " · 정답 ", correct)), /*#__PURE__*/React.createElement("div", {
+    className: "prac-q-wrap"
+  }, probSet.qs.map(function (q, qi) {
+    var _q = _slicedToArray(q, 6),
+      sent = _q[0],
+      ul = _q[1],
+      opts = _q[2],
+      ans = _q[3],
+      imp = _q[4],
+      meaning = _q[5];
+    var userAns = answers[qi];
+    var isAnswered = userAns !== undefined;
+    return /*#__PURE__*/React.createElement("div", {
+      key: qi,
+      className: "prac-q"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "prac-q-num"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "prac-q-n"
+    }, qi + 1), imp && /*#__PURE__*/React.createElement("div", {
+      className: "prac-imp"
+    }, "⭐ 중요"), isAnswered && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '14px',
+        marginLeft: 'auto',
+        fontWeight: '700',
+        color: userAns === ans ? 'var(--gn)' : 'var(--rd)'
+      }
+    }, userAns === ans ? '✅' : '❌')), /*#__PURE__*/React.createElement("div", {
+      className: "prac-sent"
+    }, renderSentence(sent, ul)), /*#__PURE__*/React.createElement("div", {
+      className: "prac-opts"
+    }, opts.map(function (opt, oi) {
+      var isPair = Array.isArray(opt);
+      var optJP = isPair ? opt[0] : opt;
+      var optKO = isPair ? opt[1] : null;
+      var cls = 'prac-opt';
+      if (isAnswered) {
+        if (oi === ans) cls += ' correct';else if (oi === userAns) cls += ' wrong';
+      }
+      return /*#__PURE__*/React.createElement("div", {
+        key: oi,
+        className: cls,
+        "data-disabled": isAnswered ? 'true' : undefined,
+        onClick: function onClick() {
+          return handleAnswer(qi, oi);
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontSize: '13px',
+          fontWeight: '700',
+          minWidth: '18px',
+          opacity: 0.6
+        }
+      }, oi + 1), /*#__PURE__*/React.createElement("div", {
+        style: {
+          flex: 1
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          lineHeight: '1.7'
+        }
+      }, optJP), isAnswered && optKO && /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: '11px',
+          color: oi === ans ? '#22c55e' : oi === userAns ? 'var(--rd)' : 'var(--tx3)',
+          marginTop: '2px',
+          lineHeight: '1.5'
+        }
+      }, "🇰🇷 ", optKO)));
+    })), isAnswered && /*#__PURE__*/React.createElement(React.Fragment, null, userAns !== ans && /*#__PURE__*/React.createElement("div", {
+      className: "prac-result"
+    }, "정답: ", Array.isArray(opts[ans]) ? opts[ans][0] : opts[ans], " (", ans + 1, "번)"), meaning && /*#__PURE__*/React.createElement("div", {
+      className: "prac-meaning"
+    }, "📖 ", meaning)));
+  }), answered === total && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'var(--bg2)',
+      borderRadius: '14px',
+      padding: '24px',
+      textAlign: 'center',
+      marginBottom: '16px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '32px'
+    }
+  }, correct >= 8 ? '🎉' : correct >= 6 ? '😊' : '💪'), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '28px',
+      fontWeight: '900',
+      color: 'var(--or)',
+      margin: '8px 0'
+    }
+  }, correct, "/", total), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '14px',
+      color: 'var(--tx2)'
+    }
+  }, correct >= 8 ? '훌륭합니다!' : correct >= 6 ? '잘 하셨어요!' : '오답 복습을 확인하세요!')), /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-ghost",
+    onClick: onBack,
+    style: {
+      marginTop: '8px',
+      marginBottom: '24px'
+    }
+  }, "← 목록으로")));
+}
+
+/* ─── WRONG NOTE ─────────────────────────────────────────────────────── */
+function WrongScreen(_ref1) {
+  var vocab = _ref1.vocab,
+    wrongVIdx = _ref1.wrongVIdx,
+    wrongPKeys = _ref1.wrongPKeys,
+    probs = _ref1.probs,
+    onBack = _ref1.onBack,
+    onClearVocab = _ref1.onClearVocab;
+  var wrongVocab = _toConsumableArray(wrongVIdx).map(function (i) {
+    return {
+      i: i,
+      v: vocab[i]
+    };
+  }).filter(function (x) {
+    return x.v;
+  });
+  var wrongProbs = _toConsumableArray(wrongPKeys).map(function (key) {
+    var _key$split$map = key.split('-').map(Number),
+      _key$split$map2 = _slicedToArray(_key$split$map, 2),
+      sid = _key$split$map2[0],
+      qi = _key$split$map2[1];
+    var ps = probs.find(function (p) {
+      return p.id === sid;
+    });
+    if (!ps) return null;
+    return {
+      key: key,
+      ps: ps,
+      qi: qi,
+      q: ps.qs[qi]
+    };
+  }).filter(Boolean);
+  var total = wrongVocab.length + wrongProbs.length;
+  if (total === 0) {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "nav"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: "nav-back",
+      onClick: onBack
+    }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+      className: "nav-title"
+    }, "오답 복습")), /*#__PURE__*/React.createElement("div", {
+      className: "empty"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "empty-icon"
+    }, "🎉"), /*#__PURE__*/React.createElement("div", {
+      className: "empty-text"
+    }, "오답이 없습니다! 완벽해요!")));
+  }
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "nav"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "nav-back",
+    onClick: onBack
+  }, "← 메뉴"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-title"
+  }, "오답 복습"), /*#__PURE__*/React.createElement("span", {
+    className: "nav-sub"
+  }, total, "개")), /*#__PURE__*/React.createElement("div", {
+    className: "wr-list"
+  }, wrongVocab.length > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: 'var(--tx3)',
+      fontWeight: '600',
+      letterSpacing: '1px',
+      marginBottom: '10px'
+    }
+  }, "── 어휘 오답 (", wrongVocab.length, ")"), wrongVocab.map(function (_ref10) {
+    var i = _ref10.i,
+      v = _ref10.v;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "wr-item"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "wr-kanji"
+    }, v[0]), /*#__PURE__*/React.createElement("div", {
+      className: "wr-info"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "wr-hira"
+    }, v[1]), /*#__PURE__*/React.createElement("div", {
+      className: "wr-kr"
+    }, v[2]), v[3] && /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '11px',
+        color: 'var(--tx3)',
+        marginTop: '3px'
+      }
+    }, v[3])), /*#__PURE__*/React.createElement("button", {
+      style: {
+        background: 'transparent',
+        border: '1px solid var(--bg4)',
+        color: 'var(--tx3)',
+        padding: '6px 10px',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        fontSize: '12px'
+      },
+      onClick: function onClick() {
+        return onClearVocab(i);
+      }
+    }, "✓"));
+  })), wrongProbs.length > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: '11px',
+      color: 'var(--tx3)',
+      fontWeight: '600',
+      letterSpacing: '1px',
+      marginBottom: '10px',
+      marginTop: wrongVocab.length > 0 ? '20px' : '4px'
+    }
+  }, "── 문제 오답 (", wrongProbs.length, ")"), wrongProbs.map(function (_ref11) {
+    var key = _ref11.key,
+      ps = _ref11.ps,
+      qi = _ref11.qi,
+      q = _ref11.q;
+    var _q2 = _slicedToArray(q, 4),
+      sent = _q2[0],
+      ul = _q2[1],
+      opts = _q2[2],
+      ans = _q2[3];
+    return /*#__PURE__*/React.createElement("div", {
+      key: key,
+      style: {
+        background: 'var(--bg2)',
+        border: '1px solid var(--bg3)',
+        borderRadius: '12px',
+        padding: '14px',
+        marginBottom: '10px'
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '11px',
+        color: 'var(--or)',
+        marginBottom: '6px',
+        fontWeight: '600'
+      }
+    }, ps.title, " Q", qi + 1), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '14px',
+        lineHeight: '2.4',
+        marginBottom: '8px',
+        fontFamily: "'BIZ UDPMincho',serif"
+      }
+    }, renderSentence(sent, ul)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: '14px',
+        color: 'var(--gn)',
+        fontWeight: '700'
+      }
+    }, "정답: ", Array.isArray(opts[ans]) ? opts[ans][0] : opts[ans], " (", ans + 1, "번)"));
+  }))));
+}
+var root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(React.createElement(App));
+  </script>
+</body>
+</html>
