@@ -1677,5 +1677,10 @@ function WrongScreen(_ref1) {
 var root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(React.createElement(App));
   </script>
+  <script>
+    window.addEventListener('load',()=>{
+      setTimeout(()=>{const l=document.getElementById('loading');if(l)l.style.display='none';},500);
+    });
+  </script>
 </body>
 </html>
